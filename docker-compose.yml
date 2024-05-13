@@ -25,7 +25,7 @@ services:
     volumes:
       - ./src:/var/www
     ports:
-      - ${APP_PORT:-9001}:900
+      - ${APP_PORT:-9001}:9000
       - ${VITE_PORT:-5173}:5173
     working_dir: /var/www
   phpmyadmin:
@@ -34,3 +34,7 @@ services:
       - ${PHPMYADMIN_PORT:-3400}:80
     depends_on:
       - db
+networks:
+  accounts:
+    name: account-network
+    driver: bridge
