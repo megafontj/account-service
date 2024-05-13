@@ -22,7 +22,9 @@ class UserController extends Controller
      */
     public function index(SearchRequest $request, SearchQuery $filter)
     {
-        return User::filter($filter)->cursorPaginate(20);
+        return User::filter($filter)
+            ->withCount(['followers', 'following'])
+            ->cursorPaginate(20);
     }
 
     /**
