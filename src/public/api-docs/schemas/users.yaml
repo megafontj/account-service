@@ -26,6 +26,10 @@ UsersFillableProperties:
       type: string
       example: safar@gmail.com
       description: Email of user
+    auth_id:
+      type: integer
+      example: 12
+      description: Auth id form Auth service
 User:
   allOf:
     - $ref: '#/ReadOnlyProperties'

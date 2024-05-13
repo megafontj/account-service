@@ -1,27 +1,22 @@
 openapi: 3.0.0
 info:
   title: Account (users) service
-  description: Skeleton API for Megafon Tajikistan
+  description: API for account services
   version: 0.1.9
 servers:
   - url: /api
 
 paths:
-  /users:
-    get:
+  /users:search:
+    post:
       tags:
         - Users
-      summary: Get users list
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: sort
-          in: query
-          schema:
-            type: string
+      summary: Get users list or filter it
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchResourceRequest'
       responses:
         '200':
           description: Successful response
@@ -31,6 +26,7 @@ paths:
                 $ref: './schemas/users.yaml#/UsersResponse'
         '401':
           description: Unauthorized
+  /users:
     post:
       tags:
         - Users
@@ -60,6 +56,7 @@ paths:
       description: Get user by id
       parameters:
         - $ref: '#/components/parameters/PathId'
+        - $ref: '#/components/parameters/QueryInclude'
       responses:
         '200':
           description: User Created
@@ -139,3 +136,15 @@ components:
           type: object
           nullable: true
           example: null
+    SearchResourceRequest:
+      type: object
+      properties:
+        filter:
+          type: object
+          properties:
+            name:
+              type: string
+        include:
+          type: array
+        sort:
+          type: array
