@@ -1,0 +1,49 @@
+ReadOnlyProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: ID user
+    created_at:
+      type: string
+      format: date-time
+    updated_at:
+      type: string
+      format: date-time
+
+UsersFillableProperties:
+  type: object
+  properties:
+    username:
+      type: string
+      description: Username (unique)
+    name:
+      type: string
+      example: Muhammad
+      description: Name of user
+    email:
+      type: string
+      example: safar@gmail.com
+      description: Email of user
+User:
+  allOf:
+    - $ref: '#/ReadOnlyProperties'
+    - $ref: '#/UsersFillableProperties'
+
+UserUpdateOrCreateRequest:
+  $ref: '#/UsersFillableProperties'
+
+UserResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/User'
+
+UsersResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/User'
