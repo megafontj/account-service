@@ -4,7 +4,8 @@ namespace App\Http\Controllers\ApiV1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FollowAndUnfollowRequest;
-use App\Http\Requests\UpdateOrCreateUserRequest;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
@@ -32,7 +33,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UpdateOrCreateUserRequest $request): UserResource
+    public function store(CreateUserRequest $request): UserResource
     {
         return new UserResource($this->userService->upsert($request->validated()));
     }
@@ -50,7 +51,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrCreateUserRequest $request, User $user): UserResource
+    public function update(UpdateUserRequest $request, User $user): UserResource
     {
         return new UserResource($this->userService->upsert($request->validated(), $user));
     }

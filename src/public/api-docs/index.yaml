@@ -7,7 +7,7 @@ servers:
   - url: /api
 
 paths:
-  /users:search:
+  /users/search:
     post:
       tags:
         - Users
