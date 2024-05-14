@@ -36,7 +36,7 @@ class UserService
             ->get();
     }
 
-    public function followUser(int $follingId, int $followerId)
+    public function followUser(int $follingId, int $followerId): void
     {
         if ($followerId === $follingId) {
             return;
@@ -49,11 +49,16 @@ class UserService
         UserFollowed::dispatch($follingId, $followerId)->onQueue('followers');
     }
 
-    public function unfollowUser(int $followerId, int $followingId)
+    public function unfollowUser(int $followerId, int $followingId): void
     {
         /** @var User $user */
         $user = User::findOrFail($followingId);
 
         $user->followers()->detach($followerId);
+    }
+
+    public function getByAuthId(int $authId): User
+    {
+        return User::query()->where('auth_id', $authId)->firstOrFail();
     }
 }

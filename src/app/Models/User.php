@@ -26,6 +26,11 @@ class User extends Authenticatable
         'auth_id'
     ];
 
+
+    protected $casts = [
+        'auth_id' => 'integer'
+    ];
+
     /**
      * пользователи, на которых подписан этот пользователь
      * @return BelongsToMany

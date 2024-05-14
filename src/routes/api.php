@@ -9,3 +9,4 @@ Route::get('users/{id}/followers', [UserController::class, 'followers']);
 Route::get('users/{id}/following', [UserController::class, 'following']);
 Route::post('users/{id}/follow', [UserController::class, 'followUser']);
 Route::post('users/{id}/unfollow', [UserController::class, 'unfollowUser']);
+Route::get('users/byauth/{auth_id}', [UserController::class, 'getUserByAuthId']);

@@ -21,7 +21,9 @@ class UserResource extends JsonResource
             'auth_id' => $this->auth_id,
             'email' => $this->email,
             'created_at' => $this->created_at,
-            'updated_at' => $this->update_at
+            'updated_at' => $this->update_at,
+            'followers_count' => $this->whenNotNull($this->followers_count),
+            'following_count' => $this->whenNotNull($this->following_count)
         ];
     }
 }

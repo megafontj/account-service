@@ -40,8 +40,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user): UserResource
+    public function show(int $id): UserResource
     {
+        $user = User::withCount(['followers', 'following'])->findOrFail($id);
+
         return new UserResource($user);
     }
 
@@ -84,5 +86,10 @@ class UserController extends Controller
         $this->userService->unfollowUser($id, $request->getUserId());
 
         return new EmptyResource();
+    }
+
+    public function getUserByAuthId(int $authId): UserResource
+    {
+        return new UserResource($this->userService->getByAuthId($authId));
     }
 }
