@@ -38,7 +38,8 @@ RUN docker-php-ext-install \
     xml \
     zip \
     bz2 \
-    intl
+    intl \
+    sockets
 
 RUN apt-get install -y nodejs npm
 
