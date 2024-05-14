@@ -105,6 +105,102 @@ paths:
             application/json:
               schema:
                 $ref: './schemas/users.yaml#/UserResponse'
+
+  /users/{id}/followers:
+    get:
+      tags:
+        - Users
+      summary: Пользователи, которые подписали на этот пользователем
+      description: Пользователи, которые подписали на этот пользователем
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      responses:
+        '200':
+          description: User's followers
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/users.yaml#/UsersResponse'
+        '400':
+          description: Bad request
+        500:
+          description: Server error
+
+  /users/{id}/following:
+    get:
+      tags:
+        - Users
+      summary: Пользователи, на которых подписан пользователь
+      description: Пользователи, на которых подписан пользователь
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      responses:
+        '200':
+          description: User's followers
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/users.yaml#/UsersResponse'
+        '400':
+          description: Bad request
+        500:
+          description: Server error
+  /users/{id}/follow:
+    post:
+      tags:
+        - Users
+      summary: Подписаться на пользователя
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResource'
+        '400':
+          description: Bad request
+        500:
+          description: Server error
+  /users/{id}/unfollow:
+    post:
+      tags:
+        - Users
+      summary: Отписаться от пользователя
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResource'
+        '400':
+          description: Bad request
+        500:
+          description: Server error
 components:
   securitySchemes:
     bearerAuth:

@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         User::factory(10)
-             ->hasAttached(User::factory()->count(3), [],'following')
-             ->hasAttached(User::factory()->count(3), [],'followers')
+         User::factory(3)
+             ->hasAttached(User::factory()->count(2), [],'following')
+             ->hasAttached(User::factory()->count(2), [],'followers')
              ->create();
     }
 }

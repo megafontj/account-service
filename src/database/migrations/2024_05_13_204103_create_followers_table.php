@@ -23,6 +23,8 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->cascadeOnDelete();
+
+            $table->unique(['follower_id', 'following_id']);
         });
     }
 

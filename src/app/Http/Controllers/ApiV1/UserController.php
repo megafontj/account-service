@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FollowAndUnfollowRequest;
 use App\Http\Requests\UpdateOrCreateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -10,6 +11,7 @@ use App\Services\UserService;
 use App\Support\QuerySearch\SearchQuery;
 use App\Support\Requests\SearchRequest;
 use App\Support\Resources\EmptyResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
@@ -57,6 +59,30 @@ class UserController extends Controller
     public function destroy(User $user): EmptyResource
     {
         $this->userService->destroy($user);
+        return new EmptyResource();
+    }
+
+    public function followers(int $id): AnonymousResourceCollection
+    {
+        return UserResource::collection($this->userService->getFollowers($id));
+    }
+
+    public function following(int $id): AnonymousResourceCollection
+    {
+        return UserResource::collection($this->userService->getFollowing($id));
+    }
+
+    public function followUser(int $id, FollowAndUnfollowRequest $request): EmptyResource
+    {
+        $this->userService->followUser($id, $request->getUserId());
+
+        return new EmptyResource();
+    }
+
+    public function unfollowUser(int $id, FollowAndUnfollowRequest $request): EmptyResource
+    {
+        $this->userService->unfollowUser($id, $request->getUserId());
+
         return new EmptyResource();
     }
 }
