@@ -56,7 +56,11 @@ final class SearchQuery implements SearchQueryInterface
             if ($isLikeSearch && Schema::hasColumn($table, $colInTable)) {
                 $this->builder->where($colInTable, 'like', "%$val%");
             } else if (Schema::hasColumn($table, $colInTable)) {
-                $this->builder->where($colInTable, $val);
+                if (is_array($val)) {
+                    $this->builder->whereIn($colInTable, $val);
+                } else {
+                    $this->builder->where($colInTable, $val);
+                }
             }
         }
 
